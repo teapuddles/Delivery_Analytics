@@ -33,8 +33,6 @@ ActiveRecord::Schema.define(version: 2020_12_07_182203) do
     t.string "sender"
     t.string "message"
     t.integer "device_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
 end

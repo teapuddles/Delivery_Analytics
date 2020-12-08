@@ -4,8 +4,6 @@ class CreateReports < ActiveRecord::Migration[6.0]
       t.string :sender
       t.string :message
       t.integer :device_id
-      
-      t.timestamps
     end
   end
 end
