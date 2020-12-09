@@ -1,7 +1,12 @@
 class DevicesController < ApplicationController
 
-    def index
-        
-    end
+# create
+
+# update disabled_at
+
+# create heartbeat
+
+# create report
+
 
 end

@@ -14,8 +14,8 @@ d2 = Device.create(phone_number: "15358884203", carrier: "verizon");
 
 hb1 = Heartbeat.create(device_id: d2.id);
 
-r1 = Report.create(sender: "yo", message: "momma", device_id: Device.all.sample.id);
+r1 = Report.create(sender: "yo", message: "momma", device_id: d1.id);
 
-puts "hello"
+puts "success!!"
 
 byebug
