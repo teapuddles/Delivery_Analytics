@@ -10,8 +10,12 @@ Heartbeat.destroy_all
 Report.destroy_all
 
 d1 = Device.create(phone_number: "16317778989", carrier: "tmobile")
-d2 = Device.create(phone_number: "15358884203", carrier: "verizon")
+d2 = Device.create(phone_number: "15358884203", carrier: "verizon");
 
-hb1 = Heartbeat.create(device_id: Device.all.sample.id)
+hb1 = Heartbeat.create(device_id: d2.id);
 
-r1 = Report.create(sender: "yo", message: "momma", device_id: Device.all.sample.id)
+r1 = Report.create(sender: "yo", message: "momma", device_id: Device.all.sample.id);
+
+puts "hello"
+
+byebug

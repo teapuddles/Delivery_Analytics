@@ -25,14 +25,14 @@ ActiveRecord::Schema.define(version: 2020_12_07_182203) do
   end
 
   create_table "heartbeats", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.integer "device_id"
+    t.uuid "device_id"
     t.datetime "created_at"
   end
 
   create_table "reports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "sender"
     t.string "message"
-    t.integer "device_id"
+    t.uuid "device_id"
   end
 
 end

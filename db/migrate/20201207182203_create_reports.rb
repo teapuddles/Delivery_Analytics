@@ -3,7 +3,7 @@ class CreateReports < ActiveRecord::Migration[6.0]
     create_table :reports, id: :uuid do |t|
       t.string :sender
       t.string :message
-      t.integer :device_id
+      t.uuid :device_id
     end
   end
 end
