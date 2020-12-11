@@ -18,4 +18,3 @@ r1 = Report.create(sender: "yo", message: "momma", device_id: d1.id);
 
 puts "success!!"
 
-byebug

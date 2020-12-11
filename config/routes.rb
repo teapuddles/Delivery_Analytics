@@ -3,15 +3,15 @@ Rails.application.routes.draw do
   
   namespace :api do 
   resources :devices, only: [:index, :create, :update]
-  get '/all', to: 'devices#index'
-  get '/register', to: 'devices#register'
-  get '/terminate', to: 'devices#terminate'
+  get '/all', to: 'devices#all'
+  post '/register', to: 'devices#register'
+  patch '/terminate', to: 'devices#terminate'
 
   # resources :heartbeats, only: [:create]
-  get '/alive' => "devices#createHeartbeat"
+  post '/alive' => "devices#createHeartbeat"
 
   # resources :reports, only: [:create]
-  get '/report' => "devices#createReport"
+  post '/report' => "devices#createReport"
   end 
 
 end
