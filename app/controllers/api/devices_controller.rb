@@ -8,8 +8,13 @@ end
 
 # create device
 def register 
-    device = Device.create(device_params) 
-    render json: device
+    device = Device.new(device_params)
+    if device.phone_number && device.carrier
+        device.save
+        render json: device
+     else
+        render json: { error: 'Incorrect Params', status: 500 }
+    end
 end
 
 # update disabled_at
@@ -19,12 +24,12 @@ def terminate
     @device.update(disableDevice_params)
 end 
 
-# create heartbeat only if device has a valid datetime for disabled_at
+# create heartbeat only if device has nil for disabled_at
 def createHeartbeat
     if @device.disabled_at = nil 
         @device.heartbeats.create(heartbeat_params)
     else
-        render json: {error: "invalid user", status: 500}
+        render json: { error: "invalid user", status: 500 }
     end
 end
 
@@ -41,11 +46,11 @@ def find_device
 end
 
 def device_params
-    params.require(:device).permit(:phone_number, :carrier)
+    params.permit(:phone_number, :carrier)
 end
 
 def heartbeat_params
-    params.require(:heartbeat).permit(:device_id)
+    params.permit(:device_id)
 end 
 
 def report_params
