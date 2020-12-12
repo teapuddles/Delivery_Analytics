@@ -1,5 +1,5 @@
 class Api::DevicesController < ApplicationController
-    before_action :find_device, only: [:terminate, :createHeartbeat, :createReport]
+    before_action :find_device, only: [:terminate, :create_heartbeat, :create_report]
 
 # show devices (not needed)
 def all
@@ -24,25 +24,25 @@ def terminate
 
     @device.update(disable_device_params)
 
-    render json: @device
+    render json: @device.to_json, status: :accepted
 end 
 
 # create heartbeat only if device has nil for disabled_at
-def createHeartbeat
+def create_heartbeat
     if  @device.disabled_at.nil?
         @device.heartbeats.create(heartbeat_params)
 
-        render json: @device
+        render json: @device.to_json, status: :created
     else
         render json: { error: "invalid user", status: 500 }
     end
 end
 
 # create report
-def createReport
+def create_report
     @device.reports.create(report_params)
 
-    render json: @device 
+    render json: @device.to_json, status: :created
 end 
 
 private

@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   patch '/terminate', to: 'devices#terminate'
 
   # resources :heartbeats, only: [:create]
-  post '/alive' => "devices#createHeartbeat"
+  post '/alive' => "devices#create_heartbeat"
 
   # resources :reports, only: [:create]
-  post '/report' => "devices#createReport"
+  post '/report' => "devices#create_report"
   end 
 
 end

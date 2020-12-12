@@ -5,79 +5,82 @@ RSpec.describe 'Device requests' do
     Device.destroy_all
     Heartbeat.destroy_all
     Report.destroy_all
-    @device_attributes = {phone_number: "6315329770", carrier: "tmobile"}
+    @device_attributes = { phone_number: "6315329770", carrier: "tmobile" }
     end
 
-#     describe 'GET /api/all' do 
-#         it 'renders all devices into json' do
-#         get('/api/all')
-#         json = JSON.parse(response.body)
+    describe 'GET /api/all' do 
+        before do 
+            device = Device.create( @device_attributes )
+        end 
 
-#         expect(json.size).to eql(1)
-#         expect(response.status).to eql(200)
-#     end
-# end
+        before { get '/api/all' } 
+
+        it 'renders all devices into json' do
+        json = JSON.parse(response.body)
+
+        expect(json.size).to eql(1)
+        expect(response.status).to eql(200)
+    end
+end
 
     describe 'POST /api/register' do 
-        it 'creates a new device instance' do 
 
-            post '/api/register', params: { device: @device_attributes }
+        it  'returns the device attributes' do 
 
-            expect(response).to have_http_status(200) 
-     end
- end
+           post '/api/register', params: { phone_number: '6315329770', carrier: 'tmobile' } 
+
+            expect(JSON.parse(response.body)['phone_number']).to eql('6315329770')
+            expect(JSON.parse(response.body)['carrier']).to eql('tmobile')
+
+            expect(response).to have_http_status(:created) 
+    end
+end
 
     describe 'PATCH /api/terminate' do
         # before all this, get a device
+        before do 
+            @device = Device.create(@device_attributes)
+        end
 
         it 'changes disabled_at status to DateTime.now' do 
 
-        patch('/api/terminate')
-            expect(device.disabled_at).to eql(DateTime.now)
-            expect(response.status).to eql(200)
+            @device.disabled_at = DateTime.now
+
+        patch '/api/terminate', params: { device_id: @device.id }
+
+            expect(@device.disabled_at).not_to eql(nil)
+            expect(response.status).to eql(202)
         end
 end
 
     describe 'POST /api/alive' do 
         # before all this, get a device
-
-        it 'finds the current Device id' do
-            @device = Device.create!(
-                phone_number: "1112223333",
-                carrier: "Verizon"
-                )
-
-            expect(@device.id).to_not be_blank
-        end 
+        before do 
+            @device = Device.create(@device_attributes)
+        end
 
         it 'creates a new heartbeat instance for a device' do 
 
-        post('/api/alive', params: {heartbeats: {
-            device_id: ""
-        }})
-
+        post '/api/alive', params: { device_id: @device.id }
+        
+        expect(@device.heartbeats.size).to eql(1)
         expect(response.status).to eql(201)
+
     end
  end
 
     describe 'POST /api/report' do 
         # before all this, get a device
-
-        @device = Device.last
-
-        it 'finds the current device id' do 
-            expect(@device).to_not be_blank
+        before do 
+            @device = Device.create(@device_attributes)
         end
 
         it 'creates a new report instance for a device' do 
         
-        post('/api/report', params: {reports: {
-            device_id: @device.id,
-            message: "mother",
-            sender: "your"
-        }})
+        post '/api/report', params: { device_id: @device.id }
 
-        expect(response.status).to eql(200)
+        expect(@device.reports.size).to eql(1)
+        expect(response.status).to eql(201)
         end
     end
 end
