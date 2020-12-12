@@ -24,7 +24,6 @@ RSpec.describe 'Device requests' do
             post '/api/register', params: { device: @device_attributes }
 
             expect(response).to have_http_status(200) 
-            expect(Device.last.carrier).to eql("tmobile")
      end
  end
 

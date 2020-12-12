@@ -10,8 +10,9 @@ end
 def register 
     device = Device.new(device_params)
     if device.phone_number && device.carrier
-        device.save
-        render json: device
+        if device.save
+            render json: device.to_json, status: :created 
+        end
      else
         render json: { error: 'Incorrect Params', status: 500 }
     end
@@ -30,6 +31,7 @@ end
 def createHeartbeat
     if  @device.disabled_at.nil?
         @device.heartbeats.create(heartbeat_params)
+
         render json: @device
     else
         render json: { error: "invalid user", status: 500 }
@@ -39,6 +41,7 @@ end
 # create report
 def createReport
     @device.reports.create(report_params)
+
     render json: @device 
 end 
 
@@ -57,7 +60,7 @@ def heartbeat_params
 end 
 
 def report_params
-    params.require(:report).permit(:device_id, :message, :sender)
+    params.permit(params[:device_id], :message, :sender)
 end 
 
 def disable_device_params
