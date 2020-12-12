@@ -17,7 +17,7 @@ RSpec.describe 'Device requests' do
 #         expect(response.status).to eql(200)
 #     end
 # end
-# test repo change
+
     describe 'POST /api/register' do 
         it 'creates a new device instance' do 
 
