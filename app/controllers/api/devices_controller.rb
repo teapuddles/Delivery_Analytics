@@ -55,14 +55,12 @@ end
 
 private
 
+# find device for report, terminate, and alive
 def find_device
     @device = Device.find(params[:device_id])
 end
 
-def phone_number_format
-    phone_number.phone.e164
-end
-
+# params
 def device_params
     params.permit(:phone_number, :carrier)
 end

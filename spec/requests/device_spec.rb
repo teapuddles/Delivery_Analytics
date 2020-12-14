@@ -28,12 +28,12 @@ end
         it  'returns the device attributes' do 
 
            post '/api/register', params: { phone_number: '6315329770', carrier: 'tmobile' } 
-
-            expect(JSON.parse(response.body)['phone_number']).to eql('6315329770')
+            # adding +1 to phone number for phonelib formatting
+            expect(JSON.parse(response.body)['phone_number']).to eql('+16315329770')
             expect(JSON.parse(response.body)['carrier']).to eql('tmobile')
 
-            expect(response).to have_http_status(:created) 
-    end
+            expect(response.status).to eql(201) 
+        end
 end
 
     describe 'PATCH /api/terminate' do
