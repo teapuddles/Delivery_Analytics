@@ -8,6 +8,8 @@ RSpec.describe 'Device requests' do
     @device_attributes = { phone_number: "6315329770", carrier: "tmobile" }
     end
 
+# practice test
+
     describe 'GET /api/all' do 
         before do 
             device = Device.create( @device_attributes )
@@ -22,6 +24,8 @@ RSpec.describe 'Device requests' do
         expect(response.status).to eql(200)
     end
 end
+
+# endpoint tests
 
     describe 'POST /api/register' do 
 
