@@ -1,6 +1,5 @@
 class Api::DevicesController < ApplicationController
-    before_action :find_device, only: [:terminate, :create_heartbeat, :create_report]
-    
+    before_action :find_device, only: [:terminate, :create_heartbeat, :create_report]    
 
 # show devices (not needed)
 def all
@@ -10,7 +9,7 @@ end
 # create device
 def register 
     device = Device.new(device_params)
-    if device.phone_number && device.carrier
+    if device.valid? && device.carrier
         if device.save
             render json: device.to_json, status: :created 
         end
