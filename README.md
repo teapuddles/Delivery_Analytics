@@ -1,24 +1,26 @@
-# README
+Delivery Analytics API 
+-----------------------
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project was created with Ruby on Rails, a postgreSQL database, and the following gems:
 
-Things you may want to cover:
+- active-model-serializer 
 
-* Ruby version
+- rspec-rails
 
-* System dependencies
+- phonelib
 
-* Configuration
 
-* Database creation
+Project Contents 
+-----------------------
+Api with 5 tested endpoints
 
-* Database initialization
+/api/all = will return all devices (not asked for but helped production)
 
-* How to run the test suite
+/api/register = will create a new device
 
-* Services (job queues, cache servers, search engines, etc.)
+/api/terminate = will updated a device's disabled_at attribute to Datetime.now 
 
-* Deployment instructions
+/api/alive = will create a new heartbeat 
 
-* ...
+/api/report = will create a new report 
+
