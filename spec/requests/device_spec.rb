@@ -94,8 +94,7 @@ end
 
             post '/api/alive', params: { device_id: @device.id, disabled_at: 'Fri, 25 Dec 2020 18:23:55 -0500' }
 
-            expect(JSON.parse(response.body)['error']).to eql('Invalid User') 
-            expect(JSON.parse(response.body)['status']).to eql(500) 
+            expect(response.status).to eql(500)
         end
  end
 
@@ -118,7 +117,7 @@ end
             post '/api/alive', params: { device_id: @device.id, disabled_at: 'Fri, 25 Dec 2020 18:23:55 -0500' }
 
             expect(JSON.parse(response.body)['error']).to eql('Invalid User') 
-            expect(JSON.parse(response.body)['status']).to eql(500) 
+            expect(response.status).to eql(500)
         end
     end
 end
