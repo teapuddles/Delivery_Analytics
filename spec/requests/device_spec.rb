@@ -38,6 +38,14 @@ end
 
             expect(response.status).to eql(201) 
         end
+
+        it 'returns an error if passed incorrect params' do 
+            post '/api/register', params: { phone_number: "8fhj38jdj___", carrier: "boost" } 
+            
+            expect(JSON.parse(response.body)['error']).to eql('Incorrect Params') 
+            expect(JSON.parse(response.body)['status']).to eql(500) 
+        end
+
 end
 
     describe 'PATCH /api/terminate' do
