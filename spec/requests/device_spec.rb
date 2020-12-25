@@ -83,15 +83,15 @@ end
 
         it 'creates a new heartbeat instance for a device' do 
 
-        post '/api/alive', params: { device_id: @device.id }
+            post '/api/alive', params: { device_id: @device.id }
         
-        expect(@device.heartbeats.size).to eql(1)
-        expect(response.status).to eql(201)
+            expect(@device.heartbeats.size).to eql(1)
+            expect(response.status).to eql(201)
 
         end
 
         it 'returns an error if passed an invalid user' do 
-            
+
             post '/api/alive', params: { device_id: @device.id, disabled_at: 'Fri, 25 Dec 2020 18:23:55 -0500' }
 
             expect(JSON.parse(response.body)['error']).to eql('Invalid User') 
@@ -107,10 +107,18 @@ end
 
         it 'creates a new report instance for a device' do 
         
-        post '/api/report', params: { device_id: @device.id }
+            post '/api/report', params: { device_id: @device.id }
 
-        expect(@device.reports.size).to eql(1)
-        expect(response.status).to eql(201)
+            expect(@device.reports.size).to eql(1)
+            expect(response.status).to eql(201)
+        end
+
+        it 'returns an error if passed an invalid user' do 
+            
+            post '/api/alive', params: { device_id: @device.id, disabled_at: 'Fri, 25 Dec 2020 18:23:55 -0500' }
+
+            expect(JSON.parse(response.body)['error']).to eql('Invalid User') 
+            expect(JSON.parse(response.body)['status']).to eql(500) 
         end
     end
 end
