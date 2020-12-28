@@ -112,8 +112,6 @@ end
 
 
 
-
-
 #     expect(JSON.parse(response.body)['error']).to eql('Incorrect Params') 
 #     expect(JSON.parse(response.body)['status']).to eql(500) 
 
